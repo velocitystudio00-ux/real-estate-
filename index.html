@@ -1,0 +1,2237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeNest Realty | Luxury Real Estate Demo</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --primary: #0F172A;
+            --primary-light: #1E293B;
+            --accent: #C5A880;
+            --accent-hover: #B3956B;
+            --accent-light: #F4EFEA;
+            --bg-main: #FAFAFA;
+            --bg-card: #FFFFFF;
+            --text-main: #334155;
+            --text-muted: #64748B;
+            --text-white: #FFFFFF;
+            --border: #E2E8F0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            --shadow-lg: 0 20px 30px -10px rgba(0,0,0,0.08);
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        button, input, select, textarea {
+            font-family: inherit;
+            font-size: inherit;
+            outline: none;
+            border: none;
+        }
+
+        button {
+            cursor: pointer;
+            background: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-padding {
+            padding: 6rem 0;
+        }
+
+        /* Typography Helpers */
+        .heading-xl {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--primary);
+        }
+
+        .heading-lg {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--primary);
+        }
+
+        .heading-md {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .section-subtitle {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        /* UI Components */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.75rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--text-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: var(--text-white);
+        }
+
+        .btn-accent:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--text-white);
+        }
+
+        .btn-white {
+            background-color: var(--bg-card);
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            background-color: var(--accent-light);
+            color: var(--primary);
+        }
+
+        /* Demo Notice Banner */
+        .demo-notice {
+            background-color: var(--primary);
+            color: var(--accent-light);
+            font-size: 0.8rem;
+            padding: 0.4rem 0;
+            text-align: center;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* ==========================================================================
+           2. NAVIGATION
+           ========================================================================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .brand-logo i {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-main);
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .badge-count {
+            background-color: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 50%;
+            padding: 2px 6px;
+            position: relative;
+            top: -8px;
+            left: -4px;
+        }
+
+        /* Mobile Nav */
+        @media (max-width: 992px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--bg-card);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 3rem 2rem;
+                gap: 1.5rem;
+                transition: var(--transition);
+                box-shadow: var(--shadow-lg);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-actions .btn-schedule {
+                display: none;
+            }
+        }
+
+        /* ==========================================================================
+           3. HERO & SEARCH
+           ========================================================================== */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            color: var(--text-white);
+            padding: 4rem 0 8rem 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.5) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-title {
+            color: var(--text-white);
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Floating Search Card */
+        .search-container {
+            position: relative;
+            z-index: 10;
+            margin-top: -5rem;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1vh));
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+            background-color: #fff;
+        }
+
+        @media (max-width: 1200px) {
+            .search-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+            .search-container {
+                margin-top: -2rem;
+                padding: 1.25rem;
+            }
+        }
+
+        /* ==========================================================================
+           4. PROPERTIES GRID & CARDS
+           ========================================================================== */
+        .properties-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        @media (max-width: 480px) {
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .property-card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .property-thumb {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .property-thumb img {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .property-card:hover .property-thumb img {
+            transform: scale(1.05);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: var(--primary);
+            color: var(--text-white);
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .property-actions-top {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover, .icon-btn.active {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .property-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .property-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .property-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .property-location {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .property-features {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .property-footer {
+            padding: 1rem 1.5rem;
+            background-color: #FAFBFD;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .property-footer .btn {
+            flex: 1;
+            padding: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        /* Compare Floating Bar */
+        .compare-bar {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(150%);
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow-lg);
+            z-index: 990;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .compare-bar.active {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ==========================================================================
+           5. ABOUT & STATS
+           ========================================================================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-img {
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            height: 520px;
+        }
+
+        .about-experience-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background-color: var(--accent);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .about-experience-badge .number {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==========================================================================
+           6. SERVICES & WHY WORK WITH US
+           ========================================================================== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-light);
+            color: var(--accent);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+        }
+
+        /* ==========================================================================
+           7. GALLERY SECTION
+           ========================================================================== */
+        .gallery-filter {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15,23,42,0.8), transparent);
+            opacity: 0;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* ==========================================================================
+           8. TESTIMONIALS & CALCULATOR
+           ========================================================================== */
+        .testimonial-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .client-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1.25rem auto;
+            border: 3px solid var(--accent);
+        }
+
+        .rating-stars {
+            color: #F59E0B;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-quote {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+        }
+
+        .client-name {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .client-role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Calculator */
+        .calculator-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .calculator-card {
+                padding: 1.5rem;
+            }
+        }
+
+        .calc-result-box {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .calc-result-amount {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin: 0.5rem 0 1.5rem 0;
+        }
+
+        /* ==========================================================================
+           9. FAQ & CONTACT
+           ========================================================================== */
+        .faq-accordion {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.25rem 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.25rem 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 992px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contact-info-card {
+            background: var(--primary);
+            color: white;
+            padding: 3rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .info-list {
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .info-item i {
+            color: var(--accent);
+            font-size: 1.25rem;
+            margin-top: 0.2rem;
+        }
+
+        /* ==========================================================================
+           10. FOOTER
+           ========================================================================== */
+        .footer {
+            background-color: var(--primary);
+            color: #94A3B8;
+            padding: 5rem 0 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-logo {
+            color: white;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-heading {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* ==========================================================================
+           11. MODALS & LIGHTBOX
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-main);
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-img {
+            max-width: 85vw;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 2rem;
+            padding: 1rem;
+            cursor: pointer;
+        }
+
+        .lightbox-prev { left: 1rem; }
+        .lightbox-next { right: 1rem; }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            border-left: 4px solid var(--accent);
+            z-index: 3000;
+            transform: translateY(150%);
+            transition: var(--transition);
+        }
+
+        .toast.active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Subtle Demo Notice Header -->
+    <div class="demo-notice">
+        DEMO WEBSITE — Properties, pricing, images, branding and information can be customized for your business.
+    </div>
+
+    <!-- Sticky Navigation -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="brand-logo" id="nav-brand">
+                <!-- Injected via JS -->
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#properties" class="nav-link">Properties</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#calculator" class="nav-link">Calculator</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="icon-btn" onclick="openFavoritesModal()" title="Saved Properties">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="badge-count" id="fav-count">0</span>
+                </button>
+                <a href="#contact" class="btn btn-accent btn-schedule">Schedule Viewing</a>
+                <button class="nav-toggle" id="nav-toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="heading-xl hero-title" id="hero-title">Find Your Next Place to Call Home</h1>
+                <p class="hero-subtitle" id="hero-subtitle">Discover exceptional homes and investment opportunities with a real estate professional you can trust.</p>
+                <div class="hero-btns">
+                    <a href="#properties" class="btn btn-accent">Explore Properties</a>
+                    <button class="btn btn-white" onclick="openViewingModal()">Schedule a Viewing</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Search Interface Container -->
+    <div class="container">
+        <div class="search-container">
+            <div class="search-grid">
+                <div class="form-group">
+                    <label>Purpose</label>
+                    <select class="form-control" id="search-purpose">
+                        <option value="all">Buy or Rent</option>
+                        <option value="For Sale">Buy</option>
+                        <option value="For Rent">Rent</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <select class="form-control" id="search-location">
+                        <!-- Injected JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Property Type</label>
+                    <select class="form-control" id="search-type">
+                        <!-- Injected JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Bedrooms</label>
+                    <select class="form-control" id="search-beds">
+                        <option value="all">Any Beds</option>
+                        <option value="2">2+ Beds</option>
+                        <option value="3">3+ Beds</option>
+                        <option value="4">4+ Beds</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Max Price</label>
+                    <select class="form-control" id="search-max-price">
+                        <option value="all">No Max</option>
+                        <option value="20000000">₹2.0 Cr</option>
+                        <option value="35000000">₹3.5 Cr</option>
+                        <option value="50000000">₹5.0 Cr</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" style="height: 48px;" onclick="applyFilters()">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Properties Section -->
+    <section class="section-padding" id="properties">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Exclusive Portfolio</span>
+                <h2 class="heading-lg">Featured Listings</h2>
+            </div>
+
+            <div class="properties-header-bar">
+                <div id="results-count" style="font-weight: 600; color: var(--text-muted);">
+                    Showing all listings
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <label style="font-size: 0.85rem; font-weight: 600;">Sort By:</label>
+                    <select class="form-control" id="sort-select" style="width: auto;" onchange="applyFilters()">
+                        <option value="featured">Featured</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="properties-grid" id="properties-grid">
+                <!-- Dynamically rendered property cards -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Property Comparison Bar -->
+    <div class="compare-bar" id="compare-bar">
+        <span><strong id="compare-count">0</strong>/3 Properties Selected for Comparison</span>
+        <button class="btn btn-accent" onclick="openCompareModal()">Compare Now</button>
+        <button style="color: white; font-size: 0.8rem;" onclick="clearComparison()">Clear</button>
+    </div>
+
+    <!-- About Agent Section -->
+    <section class="section-padding" id="about" style="background-color: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image-wrapper">
+                    <img src="" id="about-img" class="about-img" alt="Agent Profile">
+                    <div class="about-experience-badge">
+                        <div class="number" id="about-exp-years">10+</div>
+                        <div style="font-size: 0.8rem; text-transform: uppercase;">Years Experience</div>
+                    </div>
+                </div>
+                <div>
+                    <span class="section-subtitle">Your Trusted Advisor</span>
+                    <h2 class="heading-lg" style="margin-bottom: 1.5rem;" id="about-name">Arjun Mehta</h2>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-muted);" id="about-bio">
+                        With over a decade of personal involvement in the premium real estate market, I provide client-focused real estate guidance built on integrity, market intuition, and rigorous negotiation.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem;">
+                        <div class="feature-item"><i class="fa-solid fa-circle-check" style="color: var(--accent);"></i> Certified Luxury Home Marketing Specialist</div>
+                        <div class="feature-item"><i class="fa-solid fa-circle-check" style="color: var(--accent);"></i> Personalized High-Touch Service Architecture</div>
+                        <div class="feature-item"><i class="fa-solid fa-circle-check" style="color: var(--accent);"></i> Deep Local Knowledge & Off-Market Access</div>
+                    </div>
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">250+</div>
+                    <div class="stat-label">Properties Sold</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">₹150Cr+</div>
+                    <div class="stat-label">Transaction Volume</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section-padding" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">What We Offer</span>
+                <h2 class="heading-lg">Comprehensive Real Estate Services</h2>
+            </div>
+            <div class="services-grid" id="services-grid">
+                <!-- Services render dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section-padding" id="gallery" style="background-color: var(--bg-card); border-top: 1px solid var(--border);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Visual Experience</span>
+                <h2 class="heading-lg">Property Gallery</h2>
+            </div>
+
+            <div class="gallery-filter" id="gallery-filters">
+                <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+                <button class="filter-btn" onclick="filterGallery('Luxury', this)">Luxury Homes</button>
+                <button class="filter-btn" onclick="filterGallery('Apartment', this)">Apartments</button>
+                <button class="filter-btn" onclick="filterGallery('Villa', this)">Villas</button>
+                <button class="filter-btn" onclick="filterGallery('Interior', this)">Interiors</button>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Gallery Items rendered dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Carousel -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Endorsements</span>
+                <h2 class="heading-lg">Client Testimonials</h2>
+            </div>
+            <div id="testimonial-container">
+                <!-- Active testimonial rendered here -->
+            </div>
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+                <button class="icon-btn" onclick="prevTestimonial()"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="icon-btn" onclick="nextTestimonial()"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mortgage / EMI Calculator -->
+    <section class="section-padding" id="calculator" style="background-color: var(--accent-light);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Financial Planning</span>
+                <h2 class="heading-lg">Mortgage & EMI Calculator</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Demo EMI Calculator — Estimates only.</p>
+            </div>
+
+            <div class="calculator-card">
+                <div class="calculator-grid">
+                    <div>
+                        <div class="form-group" style="margin-bottom: 1.25rem;">
+                            <label>Property Price (₹)</label>
+                            <input type="number" id="calc-price" class="form-control" value="18500000" oninput="calculateEMI()">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.25rem;">
+                            <label>Down Payment (₹)</label>
+                            <input type="number" id="calc-downpayment" class="form-control" value="3700000" oninput="calculateEMI()">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.25rem;">
+                            <label>Interest Rate (%)</label>
+                            <input type="number" id="calc-rate" class="form-control" value="8.5" step="0.1" oninput="calculateEMI()">
+                        </div>
+                        <div class="form-group">
+                            <label>Loan Tenure (Years)</label>
+                            <input type="number" id="calc-tenure" class="form-control" value="20" oninput="calculateEMI()">
+                        </div>
+                    </div>
+                    <div class="calc-result-box">
+                        <span style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; opacity: 0.8;">Estimated Monthly EMI</span>
+                        <div class="calc-result-amount" id="calc-emi-result">₹0</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;" id="calc-breakdown">
+                            Principal: ₹0 | Total Interest: ₹0
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Got Questions?</span>
+                <h2 class="heading-lg">Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-accordion" id="faq-accordion">
+                <!-- FAQ Items Rendered Dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Viewing Request -->
+    <section class="section-padding" id="contact" style="background-color: var(--bg-card); border-top: 1px solid var(--border);">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <div>
+                        <span class="section-subtitle" style="color: var(--accent);">Direct Connection</span>
+                        <h3 class="heading-md" style="color: white; margin-bottom: 1rem;">Let's Talk About Your Next Home</h3>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Have questions regarding properties or market estimations? Feel free to reach out directly.</p>
+                        
+                        <div class="info-list">
+                            <div class="info-item">
+                                <i class="fa-solid fa-phone"></i>
+                                <div>
+                                    <div style="font-size: 0.8rem; opacity: 0.7;">Phone</div>
+                                    <div id="contact-phone">+91 98765 43210</div>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fa-solid fa-envelope"></i>
+                                <div>
+                                    <div style="font-size: 0.8rem; opacity: 0.7;">Email</div>
+                                    <div id="contact-email">hello@primenest.example</div>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div>
+                                    <div style="font-size: 0.8rem; opacity: 0.7;">Office</div>
+                                    <div id="contact-address">Level 12, PrimeNest Tower, Financial District, Mumbai, India</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 0.75rem;">
+                        <a href="#" id="btn-whatsapp" target="_blank" class="btn btn-accent" style="flex: 1;">
+                            <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                        </a>
+                        <a href="tel:+919876543210" id="btn-call" class="btn btn-white" style="flex: 1;">
+                            <i class="fa-solid fa-phone"></i> Call
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="heading-md" style="margin-bottom: 1.5rem;">Schedule a Viewing</h3>
+                    <form id="viewing-form" onsubmit="handleFormSubmit(event)">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" class="form-control" required placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" class="form-control" required placeholder="+91 98765 00000">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label>Select Property</label>
+                            <select class="form-control" id="form-property-select">
+                                <!-- Injected via JS -->
+                            </select>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label>Preferred Date</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Preferred Time</label>
+                                <select class="form-control">
+                                    <option>Morning (10 AM - 12 PM)</option>
+                                    <option>Afternoon (2 PM - 5 PM)</option>
+                                    <option>Evening (5 PM - 7 PM)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label>Message / Requests</label>
+                            <textarea class="form-control" rows="4" placeholder="Any specific details you'd like to inspect..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Viewing Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="footer-logo" id="footer-logo">PrimeNest</a>
+                    <p style="margin-bottom: 1.5rem; font-size: 0.9rem;" id="footer-tagline">Find a Place You'll Love to Call Home.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: white;"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="color: white;"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: white;"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="#home">Home</a>
+                        <a href="#properties">Properties</a>
+                        <a href="#about">About Agent</a>
+                        <a href="#services">Services</a>
+                        <a href="#calculator">EMI Calculator</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Locations</h4>
+                    <div class="footer-links" id="footer-locations">
+                        <!-- Injected JS -->
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Legal</h4>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">RERA Compliance</a>
+                        <a href="#">Disclaimer</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 PrimeNest Realty. All Rights Reserved. Demo Portfolio Template.</div>
+                <div>Designed for Real Estate Professionals</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Property Detail Modal -->
+    <div class="modal-overlay" id="property-modal">
+        <div class="modal-container" id="property-modal-content">
+            <!-- Modal Data Injected dynamic -->
+        </div>
+    </div>
+
+    <!-- Property Comparison Modal -->
+    <div class="modal-overlay" id="compare-modal">
+        <div class="modal-container" style="max-width: 1000px;">
+            <div class="modal-close" onclick="closeModal('compare-modal')"><i class="fa-solid fa-xmark"></i></div>
+            <h3 class="heading-md" style="margin-bottom: 1.5rem;">Property Comparison</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left;" id="compare-table">
+                    <!-- Dynamic comparison table -->
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-overlay" id="lightbox">
+        <div class="modal-close" onclick="closeLightbox()" style="position: absolute; top: 2rem; right: 2rem; color: white; background: transparent;"><i class="fa-solid fa-xmark"></i></div>
+        <div class="lightbox-nav lightbox-prev" onclick="prevLightboxImg()"><i class="fa-solid fa-chevron-left"></i></div>
+        <img src="" id="lightbox-img" class="lightbox-img" alt="Enlarged View">
+        <div class="lightbox-nav lightbox-next" onclick="nextLightboxImg()"><i class="fa-solid fa-chevron-right"></i></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Notification Message</div>
+
+    <!-- ==========================================================================
+       CENTRALIZED CONFIGURATION DATA & INTERACTIVE SCRIPT
+       ========================================================================== -->
+    <script>
+        /* ==========================================================================
+           CENTRALIZED CONFIGURATION DATA (CUSTOMIZE EVERYTHING HERE)
+           ========================================================================== */
+        const CONFIG = {
+            agentName: "Arjun Mehta",
+            companyName: "PrimeNest Realty",
+            tagline: "Find a Place You'll Love to Call Home.",
+            phone: "+91 98765 43210",
+            email: "hello@primenest.example",
+            address: "Level 12, PrimeNest Tower, Financial District, Mumbai, India",
+            heroImage: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80",
+            agentPortrait: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80",
+            
+            locations: ["Powai", "Thane West", "Mulund", "Worli", "Juhu", "Bandra West"],
+            propertyTypes: ["Apartment", "Villa", "Penthouse"],
+
+            properties: [
+                {
+                    id: 1,
+                    name: "Modern 3 BHK Residence",
+                    location: "Thane West",
+                    price: 18500000,
+                    priceDisplay: "₹1.85 Cr",
+                    type: "Apartment",
+                    purpose: "For Sale",
+                    bedrooms: 3,
+                    bathrooms: 3,
+                    area: "1,450 sq.ft",
+                    images: [
+                        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80",
+                        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
+                        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
+                    ],
+                    description: "An elegant contemporary 3 BHK apartment featuring vast floor-to-ceiling windows, high-end marble flooring, and panoramic views of the city skyline.",
+                    amenities: ["Swimming Pool", "Gymnasium", "24/7 Security", "Clubhouse", "Car Parking"],
+                    featured: true
+                },
+                {
+                    id: 2,
+                    name: "Luxury 4 BHK Estate Villa",
+                    location: "Powai",
+                    price: 47500000,
+                    priceDisplay: "₹4.75 Cr",
+                    type: "Villa",
+                    purpose: "For Sale",
+                    bedrooms: 4,
+                    bathrooms: 5,
+                    area: "3,800 sq.ft",
+                    images: [
+                        "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80",
+                        "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80"
+                    ],
+                    description: "Ultra-exclusive private villa with personal plunge pool, manicured private garden, double-height ceilings, and custom designer finishes.",
+                    amenities: ["Private Pool", "Private Garden", "Smart Home Automation", "3 Car Parks"],
+                    featured: true
+                },
+                {
+                    id: 3,
+                    name: "Premium 2 BHK Skyline Apartment",
+                    location: "Mulund",
+                    price: 13500000,
+                    priceDisplay: "₹1.35 Cr",
+                    type: "Apartment",
+                    purpose: "For Sale",
+                    bedrooms: 2,
+                    bathrooms: 2,
+                    area: "980 sq.ft",
+                    images: [
+                        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80"
+                    ],
+                    description: "Thoughtfully planned modern 2 BHK home optimizing space, light, and ventilation. Located in a connected neighborhood with premier amenities.",
+                    amenities: ["Rooftop Garden", "Fitness Center", "Children Play Area"],
+                    featured: true
+                },
+                {
+                    id: 4,
+                    name: "Seafacing Penthouse Suite",
+                    location: "Worli",
+                    price: 85000000,
+                    priceDisplay: "₹8.50 Cr",
+                    type: "Penthouse",
+                    purpose: "For Sale",
+                    bedrooms: 4,
+                    bathrooms: 5,
+                    area: "4,500 sq.ft",
+                    images: [
+                        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
+                    ],
+                    description: "Breathtaking oceanfront penthouse boasting private terrace deck, personal elevator, home theater space, and unparalleled sunset views.",
+                    amenities: ["Private Elevator", "Sea View", "Concierge Service", "Private Deck"],
+                    featured: false
+                },
+                {
+                    id: 5,
+                    name: "Urban Luxury Flat",
+                    location: "Bandra West",
+                    price: 120000,
+                    priceDisplay: "₹1.20 Lakh/mo",
+                    type: "Apartment",
+                    purpose: "For Rent",
+                    bedrooms: 2,
+                    bathrooms: 2,
+                    area: "1,100 sq.ft",
+                    images: [
+                        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"
+                    ],
+                    description: "Fully furnished high-end modern flat in Bandra West, styled by interior professionals. Move-in ready with luxury fittings.",
+                    amenities: ["Fully Furnished", "Valet Parking", "Gym"],
+                    featured: false
+                },
+                {
+                    id: 6,
+                    name: "Boutique Garden Villa",
+                    location: "Juhu",
+                    price: 62000000,
+                    priceDisplay: "₹6.20 Cr",
+                    type: "Villa",
+                    purpose: "For Sale",
+                    bedrooms: 3,
+                    bathrooms: 4,
+                    area: "2,900 sq.ft",
+                    images: [
+                        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+                    ],
+                    description: "Quiet luxury living situated moments from Juhu Beach. Features serene landscaped courtyards and open architectural design.",
+                    amenities: ["Beachside Access", "Garden", "Security"],
+                    featured: true
+                }
+            ],
+
+            services: [
+                {
+                    title: "Buying Assistance",
+                    desc: "Find the right luxury property and negotiate purchase terms with full market transparency.",
+                    icon: "fa-house-circle-check"
+                },
+                {
+                    title: "Selling Your Property",
+                    desc: "Present your property professionally to reach high-net-worth buyers effortlessly.",
+                    icon: "fa-chart-line"
+                },
+                {
+                    title: "Rental Services",
+                    desc: "Match high-caliber corporate tenants with high-value residential properties seamlessly.",
+                    icon: "fa-key"
+                },
+                {
+                    title: "Property Investment",
+                    desc: "Data-driven advisory for long-term real estate portfolio asset growth and yields.",
+                    icon: "fa-coins"
+                }
+            ],
+
+            testimonials: [
+                {
+                    name: "Vikram Malhotra",
+                    role: "Tech Entrepreneur",
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+                    text: "Arjun helped us acquire our dream home in Powai seamlessly. His knowledge of off-market listings and negotiation efficiency was extraordinary.",
+                    stars: 5
+                },
+                {
+                    name: "Ananya Roy",
+                    role: "Corporate Executive",
+                    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+                    text: "Extremely professional experience! PrimeNest made buying our Thane residence hassle-free. Transparent guidance from day one.",
+                    stars: 5
+                }
+            ],
+
+            gallery: [
+                { img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80", category: "Villa" },
+                { img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=80", category: "Interior" },
+                { img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80", category: "Apartment" },
+                { img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80", category: "Luxury" }
+            ],
+
+            faqs: [
+                {
+                    q: "How do I schedule a property viewing?",
+                    a: "You can schedule a viewing by clicking the 'Schedule Viewing' button on any property card or completing the form in our Contact section."
+                },
+                {
+                    q: "Do you assist with home loans and EMI guidance?",
+                    a: "Yes, we work closely with top financial institutions to ensure smooth loan approvals and offer advisory support."
+                },
+                {
+                    q: "Can I compare multiple properties?",
+                    a: "Yes! Click the scale icon on up to 3 property cards to compare features side-by-side."
+                }
+            ]
+        };
+
+        /* ==========================================================================
+           LOCAL APPLICATION STATE
+           ========================================================================== */
+        let state = {
+            favorites: JSON.parse(localStorage.getItem('primenest_favs')) || [],
+            compareList: [],
+            activeTestimonial: 0,
+            currentLightboxList: [],
+            currentLightboxIdx: 0
+        };
+
+        /* ==========================================================================
+           INITIALIZATION & BINDING
+           ========================================================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            initBranding();
+            populateDropdowns();
+            renderProperties(CONFIG.properties);
+            renderServices();
+            renderGallery('all');
+            renderTestimonials();
+            renderFAQs();
+            calculateEMI();
+            updateFavBadge();
+
+            // Mobile menu toggle
+            document.getElementById('nav-toggle').addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.toggle('active');
+            });
+        });
+
+        function initBranding() {
+            document.getElementById('nav-brand').innerHTML = `<i class="fa-solid fa-building-user"></i> ${CONFIG.companyName}`;
+            document.getElementById('footer-logo').innerText = CONFIG.companyName;
+            document.getElementById('footer-tagline').innerText = CONFIG.tagline;
+            document.getElementById('about-name').innerText = CONFIG.agentName;
+            document.getElementById('contact-phone').innerText = CONFIG.phone;
+            document.getElementById('contact-email').innerText = CONFIG.email;
+            document.getElementById('contact-address').innerText = CONFIG.address;
+            document.getElementById('about-img').src = CONFIG.agentPortrait;
+            document.querySelector('.hero').style.backgroundImage = `url('${CONFIG.heroImage}')`;
+            
+            // Buttons Links
+            document.getElementById('btn-whatsapp').href = `https://wa.me/${CONFIG.phone.replace(/[^0-9]/g, '')}?text=Hi%20${encodeURIComponent(CONFIG.agentName)},%20I%20am%20interested%20in%20learning%20more%20about%20your%20listed%20properties.`;
+            document.getElementById('btn-call').href = `tel:${CONFIG.phone}`;
+
+            // Footer Locations
+            const locFooter = document.getElementById('footer-locations');
+            locFooter.innerHTML = CONFIG.locations.map(l => `<a href="#properties" onclick="quickFilterLocation('${l}')">${l} Real Estate</a>`).join('');
+        }
+
+        function populateDropdowns() {
+            const locSelect = document.getElementById('search-location');
+            locSelect.innerHTML = `<option value="all">All Locations</option>` + CONFIG.locations.map(l => `<option value="${l}">${l}</option>`).join('');
+
+            const typeSelect = document.getElementById('search-type');
+            typeSelect.innerHTML = `<option value="all">All Types</option>` + CONFIG.propertyTypes.map(t => `<option value="${t}">${t}</option>`).join('');
+
+            const formPropSelect = document.getElementById('form-property-select');
+            formPropSelect.innerHTML = CONFIG.properties.map(p => `<option value="${p.id}">${p.name} (${p.location})</option>`).join('');
+        }
+
+        /* ==========================================================================
+           PROPERTIES RENDERING & FILTERS
+           ========================================================================== */
+        function renderProperties(items) {
+            const grid = document.getElementById('properties-grid');
+            document.getElementById('results-count').innerText = `${items.length} Properties Found`;
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 4rem 0;">
+                        <i class="fa-solid fa-house-circle-xmark" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                        <h3>No Properties Match Your Search</h3>
+                        <p style="color: var(--text-muted);">Try adjusting your filter criteria to see available listings.</p>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = items.map(p => {
+                const isFav = state.favorites.includes(p.id);
+                const isComp = state.compareList.includes(p.id);
+                return `
+                <div class="property-card">
+                    <div class="property-thumb">
+                        <img src="${p.images[0]}" alt="${p.name}">
+                        <span class="property-badge">${p.purpose}</span>
+                        <div class="property-actions-top">
+                            <button class="icon-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id})" title="Save Property">
+                                <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
+                            </button>
+                            <button class="icon-btn ${isComp ? 'active' : ''}" onclick="toggleCompare(${p.id})" title="Compare Property">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-price">${p.priceDisplay}</div>
+                        <h3 class="property-title">${p.name}</h3>
+                        <div class="property-location"><i class="fa-solid fa-location-dot"></i> ${p.location}</div>
+                        <div class="property-features">
+                            <span class="feature-item"><i class="fa-solid fa-bed"></i> ${p.bedrooms} Beds</span>
+                            <span class="feature-item"><i class="fa-solid fa-bath"></i> ${p.bathrooms} Baths</span>
+                            <span class="feature-item"><i class="fa-solid fa-ruler-combined"></i> ${p.area}</span>
+                        </div>
+                    </div>
+                    <div class="property-footer">
+                        <button class="btn btn-outline" onclick="openPropertyModal(${p.id})">View Details</button>
+                        <button class="btn btn-accent" onclick="quickSchedule(${p.id})">Schedule</button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function applyFilters() {
+            const purpose = document.getElementById('search-purpose').value;
+            const location = document.getElementById('search-location').value;
+            const type = document.getElementById('search-type').value;
+            const beds = document.getElementById('search-beds').value;
+            const maxPrice = document.getElementById('search-max-price').value;
+            const sort = document.getElementById('sort-select').value;
+
+            let filtered = CONFIG.properties.filter(p => {
+                if (purpose !== 'all' && p.purpose !== purpose) return false;
+                if (location !== 'all' && p.location !== location) return false;
+                if (type !== 'all' && p.type !== type) return false;
+                if (beds !== 'all' && p.bedrooms < parseInt(beds)) return false;
+                if (maxPrice !== 'all' && p.price > parseInt(maxPrice)) return false;
+                return true;
+            });
+
+            if (sort === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+            if (sort === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+
+            renderProperties(filtered);
+        }
+
+        function quickFilterLocation(loc) {
+            document.getElementById('search-location').value = loc;
+            applyFilters();
+        }
+
+        /* ==========================================================================
+           FAVORITES & COMPARISON SYSTEM
+           ========================================================================== */
+        function toggleFavorite(id) {
+            if (state.favorites.includes(id)) {
+                state.favorites = state.favorites.filter(favId => favId !== id);
+                showToast("Removed from Saved Properties");
+            } else {
+                state.favorites.push(id);
+                showToast("Saved to Favorites");
+            }
+            localStorage.setItem('primenest_favs', JSON.stringify(state.favorites));
+            updateFavBadge();
+            applyFilters();
+        }
+
+        function updateFavBadge() {
+            document.getElementById('fav-count').innerText = state.favorites.length;
+        }
+
+        function openFavoritesModal() {
+            const favProps = CONFIG.properties.filter(p => state.favorites.includes(p.id));
+            const modalContent = document.getElementById('property-modal-content');
+            
+            modalContent.innerHTML = `
+                <div class="modal-close" onclick="closeModal('property-modal')"><i class="fa-solid fa-xmark"></i></div>
+                <h3 class="heading-md" style="margin-bottom: 1.5rem;">Saved Properties (${favProps.length})</h3>
+                ${favProps.length === 0 ? '<p>No saved properties yet.</p>' : `
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        ${favProps.map(p => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
+                                <div>
+                                    <strong>${p.name}</strong> - ${p.priceDisplay}
+                                    <div style="font-size: 0.8rem; color: var(--text-muted);">${p.location}</div>
+                                </div>
+                                <button class="btn btn-outline" onclick="openPropertyModal(${p.id})">View</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `}
+            `;
+            document.getElementById('property-modal').classList.add('active');
+        }
+
+        function toggleCompare(id) {
+            if (state.compareList.includes(id)) {
+                state.compareList = state.compareList.filter(cId => cId !== id);
+            } else {
+                if (state.compareList.length >= 3) {
+                    showToast("You can compare up to 3 properties maximum.");
+                    return;
+                }
+                state.compareList.push(id);
+            }
+            updateCompareBar();
+            applyFilters();
+        }
+
+        function updateCompareBar() {
+            const bar = document.getElementById('compare-bar');
+            document.getElementById('compare-count').innerText = state.compareList.length;
+            if (state.compareList.length > 0) bar.classList.add('active');
+            else bar.classList.remove('active');
+        }
+
+        function clearComparison() {
+            state.compareList = [];
+            updateCompareBar();
+            applyFilters();
+        }
+
+        function openCompareModal() {
+            const compProps = CONFIG.properties.filter(p => state.compareList.includes(p.id));
+            const table = document.getElementById('compare-table');
+
+            table.innerHTML = `
+                <tr>
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--border);">Feature</th>
+                    ${compProps.map(p => `<th style="padding: 1rem; border-bottom: 2px solid var(--border);">${p.name}</th>`).join('')}
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border);">Price</td>
+                    ${compProps.map(p => `<td style="padding: 1rem; border-bottom: 1px solid var(--border); font-weight:700; color:var(--accent);">${p.priceDisplay}</td>`).join('')}
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border);">Location</td>
+                    ${compProps.map(p => `<td style="padding: 1rem; border-bottom: 1px solid var(--border);">${p.location}</td>`).join('')}
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border);">Bedrooms / Baths</td>
+                    ${compProps.map(p => `<td style="padding: 1rem; border-bottom: 1px solid var(--border);">${p.bedrooms} Beds / ${p.bathrooms} Baths</td>`).join('')}
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border);">Area</td>
+                    ${compProps.map(p => `<td style="padding: 1rem; border-bottom: 1px solid var(--border);">${p.area}</td>`).join('')}
+                </tr>
+            `;
+            document.getElementById('compare-modal').classList.add('active');
+        }
+
+        /* ==========================================================================
+           PROPERTY DETAIL MODAL & LIGHTBOX
+           ========================================================================== */
+        function openPropertyModal(id) {
+            const p = CONFIG.properties.find(item => item.id === id);
+            const modalContent = document.getElementById('property-modal-content');
+
+            modalContent.innerHTML = `
+                <div class="modal-close" onclick="closeModal('property-modal')"><i class="fa-solid fa-xmark"></i></div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+                    <div>
+                        <img src="${p.images[0]}" style="border-radius: var(--radius-md); width: 100%; height: 280px; cursor: pointer;" onclick="openLightbox('${p.images[0]}')" alt="${p.name}">
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                            ${p.images.map(img => `<img src="${img}" style="width: 70px; height: 50px; border-radius: 4px; cursor: pointer;" onclick="openLightbox('${img}')">`).join('')}
+                        </div>
+                    </div>
+                    <div>
+                        <span class="section-subtitle">${p.purpose} • ${p.type}</span>
+                        <h2 class="heading-md">${p.name}</h2>
+                        <div style="font-size: 1.5rem; color: var(--accent); font-weight: 700; margin: 0.5rem 0;">${p.priceDisplay}</div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">${p.description}</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.85rem; margin-bottom: 1.5rem;">
+                            <div><strong>Location:</strong> ${p.location}</div>
+                            <div><strong>Bedrooms:</strong> ${p.bedrooms}</div>
+                            <div><strong>Bathrooms:</strong> ${p.bathrooms}</div>
+                            <div><strong>Area:</strong> ${p.area}</div>
+                        </div>
+
+                        <button class="btn btn-accent" style="width: 100%;" onclick="quickSchedule(${p.id}); closeModal('property-modal');">Schedule a Viewing</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('property-modal').classList.add('active');
+        }
+
+        function openLightbox(imgUrl) {
+            document.getElementById('lightbox-img').src = imgUrl;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        /* ==========================================================================
+           SERVICES, GALLERY & TESTIMONIALS RENDERING
+           ========================================================================== */
+        function renderServices() {
+            const grid = document.getElementById('services-grid');
+            grid.innerHTML = CONFIG.services.map(s => `
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid ${s.icon}"></i></div>
+                    <h3 class="service-title">${s.title}</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">${s.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderGallery(cat) {
+            const grid = document.getElementById('gallery-grid');
+            const filtered = cat === 'all' ? CONFIG.gallery : CONFIG.gallery.filter(g => g.category === cat);
+
+            grid.innerHTML = filtered.map(g => `
+                <div class="gallery-item" onclick="openLightbox('${g.img}')">
+                    <img src="${g.img}" alt="Gallery Image">
+                    <div class="gallery-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> ${g.category}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterGallery(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderGallery(cat);
+        }
+
+        function renderTestimonials() {
+            const container = document.getElementById('testimonial-container');
+            const t = CONFIG.testimonials[state.activeTestimonial];
+
+            container.innerHTML = `
+                <div class="testimonial-card">
+                    <img src="${t.avatar}" class="client-avatar" alt="${t.name}">
+                    <div class="rating-stars">${'<i class="fa-solid fa-star"></i>'.repeat(t.stars)}</div>
+                    <p class="testimonial-quote">"${t.text}"</p>
+                    <div class="client-name">${t.name}</div>
+                    <div class="client-role">${t.role}</div>
+                </div>
+            `;
+        }
+
+        function prevTestimonial() {
+            state.activeTestimonial = (state.activeTestimonial - 1 + CONFIG.testimonials.length) % CONFIG.testimonials.length;
+            renderTestimonials();
+        }
+
+        function nextTestimonial() {
+            state.activeTestimonial = (state.activeTestimonial + 1) % CONFIG.testimonials.length;
+            renderTestimonials();
+        }
+
+        /* ==========================================================================
+           CALCULATOR & UTILITIES
+           ========================================================================== */
+        function calculateEMI() {
+            const P = parseFloat(document.getElementById('calc-price').value) - parseFloat(document.getElementById('calc-downpayment').value);
+            const r = parseFloat(document.getElementById('calc-rate').value) / 12 / 100;
+            const n = parseFloat(document.getElementById('calc-tenure').value) * 12;
+
+            if (P <= 0 || isNaN(r) || isNaN(n)) {
+                document.getElementById('calc-emi-result').innerText = '₹0';
+                return;
+            }
+
+            const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+            const totalPayable = emi * n;
+            const totalInterest = totalPayable - P;
+
+            document.getElementById('calc-emi-result').innerText = `₹${Math.round(emi).toLocaleString('en-IN')}`;
+            document.getElementById('calc-breakdown').innerText = `Loan Principal: ₹${(P/100000).toFixed(2)} Lakh | Total Interest: ₹${(totalInterest/100000).toFixed(2)} Lakh`;
+        }
+
+        function renderFAQs() {
+            const acc = document.getElementById('faq-accordion');
+            acc.innerHTML = CONFIG.faqs.map((f, idx) => `
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span>${f.q}</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">${f.a}</div>
+                </div>
+            `).join('');
+        }
+
+        function toggleFAQ(item) {
+            item.classList.toggle('active');
+        }
+
+        function quickSchedule(propId) {
+            document.getElementById('form-property-select').value = propId;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            showToast("Viewing request received! (Front-end Demo)");
+            e.target.reset();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function openViewingModal() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
